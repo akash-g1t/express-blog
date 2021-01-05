@@ -5,8 +5,9 @@ const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 5000;
 
+require('dotenv').config();
 // Connecting to database
-const DBURI = 'mongodb+srv://testing1234:testing1234@cluster0.cpwfq.mongodb.net/Cluster0?retryWrites=true&w=majority'
+const DBURI = `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.cpwfq.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
 mongoose.connect(DBURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(result => app.listen(PORT, () => console.log(`Server is listening to port ${PORT}`)))
     .catch(err => console.log(err))
