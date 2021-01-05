@@ -17,12 +17,17 @@ const blog_index = async (req, res) => {
 
 
 const blog_detail = async (req, res) => {
-    const blog = await Blog.findById(req.params.id);
-
-    const context = {
-        blog
-    };
-    res.render("blog/single", context);
+    try {
+        const blog = await Blog.findById(req.params.id);
+    
+        const context = {
+            blog
+        };
+        res.render("blog/single", context);
+        
+    } catch (error) {
+        res.redirect("/blog");
+    }
 };
 
 
@@ -46,17 +51,27 @@ const blog_create_post = async (req, res) => {
 
 
 const blog_delete_get = async (req, res) => {
-    const blog = await Blog.findById(req.params.id);
-    await Blog.deleteOne(blog);
+    try {
+        const blog = await Blog.findById(req.params.id);
+        await Blog.deleteOne(blog);
+        
+    } catch (error) {
+        res.redirect("/blog");
+    }
 
     res.redirect("/blog");
 };
 
 
 const blog_delete_delete = async (req, res) => {
-    await Blog.findByIdAndDelete(req.params.id);
-
-    res.status(200).json({ redirect: "/blog"});
+    try {
+        
+        await Blog.findByIdAndDelete(req.params.id);
+    
+        res.status(200).json({ redirect: "/blog"});
+    } catch (error) {
+        res.status(404).json({msg: "No blog found!"})
+    }
 };
 
 
