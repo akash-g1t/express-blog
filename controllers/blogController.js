@@ -4,12 +4,20 @@ const Blog = require("../models/blog");
 const { check, validationResult } = require("express-validator");
 
 
-
+// Paginated
 const blog_index = async (req, res) => {
-    const blogs = await Blog.find();
+    const { page = 1, limit = 10} = req.query;
+    const blogs = await Blog.find().limit(limit*1).skip((page-1)*limit);
+
+    const nextBlogsLength = await Blog.find().limit(limit*1).skip((page)*limit);
+
+    const next = nextBlogsLength.length > 0 ? true : false;
+    console.log(next);
 
     const context = {
-        blogs
+        blogs,
+        next,
+        page
     }
 
     res.render("blog/index", context)

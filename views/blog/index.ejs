@@ -12,4 +12,10 @@
         <p><a href="/blog/delete/<%= blog._id %>" %>">Delete</a></p>
     <% }) %>
 
+    <% if (next) { %>
+        <a href="/blog?page=<%= parseInt(page)+1 %>">Next</a>
+    <% } else { %>
+        <a href="/blog?page=<%= parseInt(page)-1 %>">Previous</a>
+    <% } %>
+
 <%- include("../partials/footer.ejs") %>
