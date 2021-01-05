@@ -1,0 +1,15 @@
+<%- include("../partials/header.ejs") %>
+
+    <h1>BLog</h1>
+    <% blogs.forEach(blog => { %>
+        <br><hr>
+        <p><a href="/blog/single/<%= blog._id %>" %>">ID: <%= blog._id %></a></p>
+        <p>Title: <%= blog.title %></p>
+        <p>Snippet: <%= blog.snippet %></p>
+        <p>Body: <%= blog.body %></p>
+        <p>Created At: <%= blog.createdAt %></p>
+        <p>Updated At: <%= blog.updatedAt %></p>
+        <p><a href="/blog/delete/<%= blog._id %>" %>">Delete</a></p>
+    <% }) %>
+
+<%- include("../partials/footer.ejs") %>

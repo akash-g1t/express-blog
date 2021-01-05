@@ -1,0 +1,39 @@
+<%- include("../partials/header.ejs") %>
+
+    <h1>BLog</h1>
+    <div>
+    <p>ID: <%= blog._id %></p>
+    <p>Title: <%= blog.title %></p>
+    <p>Snippet: <%= blog.snippet %></p>
+    <p>Body: <%= blog.body %></p>
+    <p>Created At: <%= blog.createdAt %></p>
+    <p>Updated At: <%= blog.updatedAt %></p>
+    <button class="btn btn-primary"id="delete" data-doc="<%= blog._id %>">Delete</button>
+    </div>
+
+    <script>
+        const trashcan = document.getElementById("delete");
+
+        // var show = true;
+        // var div = document.getElementsByTagName("div");
+        // if (show) {
+        //     div.style.display = block;
+        // } else {
+        //     div.style.display = none;
+        // }
+        
+        
+        trashcan.addEventListener("click", e => {
+            const endpoint = "/blog/remove/" + trashcan.dataset.doc + "/";
+            console.log(endpoint);
+
+            fetch(endpoint, {
+                method: "DELETE",
+            })
+            .then((response) => response.json())
+            .then(data => window.location.href = data.redirect)
+            .catch(err => console.log(err));
+        })
+    </script>
+
+<%- include("../partials/footer.ejs") %>

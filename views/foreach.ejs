@@ -1,0 +1,11 @@
+<%- include("./partials/header.ejs") %>
+    <h1>Blogs!</h1>
+    <% if ( locals.blogs && locals.blogs != "undefined" && locals.blogs.length>0) {%>
+      <% blogs.forEach(blog => { %>
+        <p><%= blog.title %> with <%= blog.snippet %></p>
+      <% }) %>
+    <% } else { %>
+      <p>There are no blogs</p>
+    <% } %>
+ 
+    <%- include("./partials/footer.ejs") %>
