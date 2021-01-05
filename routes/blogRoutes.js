@@ -2,47 +2,23 @@ const { request } = require("express");
 const express = require("express");
 const router = express.Router();
 
-const { check, validationResult } = require("express-validator");
+const { check } = require("express-validator");
 
 const Blog = require("../models/blog")
 
+const blogController = require("../controllers/blogController");
+
 // Index Blog Url
-router.get("/", async (req, res) => {
-    const blogs = await Blog.find();
-
-    // console.log(blogs.length);
-    // console.log(typeof (blogs));
-
-    // Slicing OR Limiting the amount of objects
-    // let sliced = [];
-    // for (let i=0; i<blogs.length && i<2; i++) {
-    //     sliced.push(blogs[i]);
-    // }
-    // console.log("Sliced are : ", sliced)
-
-    const context = {
-        blogs
-    }
-
-    res.render("blog/index", context)
-});
+router.get("/", blogController.blog_index);
 
 // Get Single Blog Url
-router.get("/single/:id", async (req, res) => {
-    const blog = await Blog.findById(req.params.id);
-
-    const context = {
-        blog
-    };
-    res.render("blog/single", context);
-
-})
+router.get("/single/:id", blogController.blog_detail)
 
 
 // Create Blog Form Url
-router.get("/create", async (req, res) => {
-    res.render("blog/create")
-});
+router.get("/create", blogController.blog_create_get);
+
+
 
 // Create Blog Url
 router.post("/create", [
@@ -52,36 +28,15 @@ router.post("/create", [
     check("snippet").notEmpty(),
     check("body").isLength({ min: 15}).notEmpty()
 
-], async (req, res) => {
+], blogController.blog_create_post);
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        res.redirect("/blog/create")
-    }
-
-    const blog = new Blog(req.body);
-
-    await blog.save();
-
-    res.redirect("/blog");
-});
 
 // Delete Blog with web GET request
-router.get("/delete/:id", async (req, res) => {
-    const blog = await Blog.findById(req.params.id);
-    await Blog.deleteOne(blog);
+router.get("/delete/:id", blogController.blog_delete_get);
 
-    res.redirect("/blog");
-});
 
 // Delete Blog with ajax DELETE request
-router.delete("/remove/:id", async (req, res) => {
-    console.log("Inside this function");
-    
-    await Blog.findByIdAndDelete(req.params.id);
-
-    res.status(200).json({ redirect: "/blog"});
-});
+router.delete("/remove/:id", blogController.blog_delete_delete);
 
 
 
