@@ -1,10 +1,9 @@
 // index, about, foreach
 
-const { model } = require("mongoose");
-
 const index = async (req, res) => {
     res.render("index");
 };
+
 
 const about = async(req, res) => {
     const context = {

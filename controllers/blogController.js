@@ -3,6 +3,8 @@
 const Blog = require("../models/blog");
 const { check, validationResult } = require("express-validator");
 
+
+
 const blog_index = async (req, res) => {
     const blogs = await Blog.find();
 

@@ -1,10 +1,8 @@
-const { request } = require("express");
 const express = require("express");
 const router = express.Router();
 
 const { check } = require("express-validator");
 
-const Blog = require("../models/blog")
 
 const blogController = require("../controllers/blogController");
 
