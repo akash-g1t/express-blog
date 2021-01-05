@@ -47,7 +47,7 @@ const blog_create_get = async (req, res) => {
 const blog_create_post = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        res.redirect("/blog/create")
+        return res.redirect("/blog/create")
     }
 
     const blog = new Blog(req.body);
