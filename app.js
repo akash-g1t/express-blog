@@ -44,8 +44,8 @@ app.use(express.urlencoded({extended: true}))
 
 
 // Importing routes
-const indexRouter = require("./routes/index");
-const blogRouter = require("./routes/blog");
+const indexRouter = require("./routes/indexRoutes");
+const blogRouter = require("./routes/blogRoutes");
 
 app.use("/", indexRouter);
 app.use("/blog", blogRouter);
