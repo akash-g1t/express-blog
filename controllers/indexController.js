@@ -1,7 +1,7 @@
 // index, about, foreach
 
 const index = async (req, res) => {
-    res.render("index");
+    res.render("index/index");
 };
 
 
@@ -10,7 +10,7 @@ const about = async(req, res) => {
         name: "Akash",
         via: "Context"
     }
-    res.render("about", context)
+    res.render("index/about", context)
 };
 
 
@@ -26,7 +26,7 @@ const foreach = async (req, res) => {
     context = {
         blogs
     }
-    res.render("foreach", context)
+    res.render("index/foreach", context)
 };
 
 
